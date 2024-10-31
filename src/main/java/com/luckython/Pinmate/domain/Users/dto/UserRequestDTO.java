@@ -15,4 +15,13 @@ public class UserRequestDTO {
         private String password;
         private String image;
     }
+
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    @Builder
+    public static class login {
+        private String email;
+        private String password;
+    }
 }
