@@ -1,7 +1,6 @@
 package com.luckython.Pinmate.domain.Users;
 
 import com.luckython.Pinmate.domain.Users.dto.UserRequestDTO;
-import com.luckython.Pinmate.domain.Users.dto.UserResponseDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
