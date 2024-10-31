@@ -1,6 +1,7 @@
 package com.luckython.Pinmate.domain.Users;
 
 import com.luckython.Pinmate.domain.Users.dto.UserRequestDTO;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -29,7 +30,26 @@ public class UserController {
      * @return
      */
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody UserRequestDTO.login loginDTO) {
-        return ResponseEntity.ok().body(userService.loin(loginDTO));
+    public ResponseEntity<?> login(@RequestBody UserRequestDTO.login loginDTO, HttpSession session) {
+        return ResponseEntity.ok().body(userService.loin(loginDTO, session));
+    }
+
+    /**
+     * 로그아웃
+     * @param session
+     * @return String
+     */
+    @PostMapping("/logout")
+    public ResponseEntity<?> logout(HttpSession session) {
+        return ResponseEntity.ok().body(userService.logout(session));
+    }
+
+    /**
+     * 세션 테스트용
+     * @param session
+     */
+    @PostMapping("/test")
+    public void session(HttpSession session) {
+        log.info("session test ID : " + session.getAttribute("userId"));
     }
 }

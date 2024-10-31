@@ -11,9 +11,9 @@ public class UserRequestDTO {
     @AllArgsConstructor
     @Builder
     public static class join {
-        private String email;
-        private String password;
-        private String image;
+        private String email;     // 이메일
+        private String password;  // 비밀번호
+        private String image;     // 이미지
     }
 
     @Getter
@@ -21,7 +21,7 @@ public class UserRequestDTO {
     @AllArgsConstructor
     @Builder
     public static class login {
-        private String email;
-        private String password;
+        private String email;    // 이메일
+        private String password; // 비밀번호
     }
 }
