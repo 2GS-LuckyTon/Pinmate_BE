@@ -1,9 +1,7 @@
 package com.luckython.Pinmate.domain.Review.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.luckython.Pinmate.domain.Place.entity.PlaceList;
+import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,9 +15,22 @@ public class Review {
     private Long id;
     private String content;
     //장소리스트id
+    @ManyToOne
+    @JoinColumn(name = "placelist_id")
+    private PlaceList placeList;
     // 멤버
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private user user;
     public Review(String content){
         this.content = content;
     }
-
+    public Review(String content, user user,PlaceList placeList){
+        this.content = content;
+        this.user = user;
+        this.placeList = placeList;
+    }
+    public void patch(Review review){
+        this.content = review.getContent();
+    }
 }

@@ -14,9 +14,20 @@ public class PlaceList {
     private Long id;
     private String title;
     private String subTitle;
+    private ListType listType;
     /*@ManyToOne
     @JoinColumn(name = "user_id")
-    private User user; */
+    private user user;*/
 
-
+    public PlaceList(String title, String subTitle, ListType listType){
+        this.title = title;
+        this.subTitle = subTitle;
+        this.listType = listType;
+    }
+    public PlaceList(String title,String subTitle, ListType listType, user user){
+        this.title = title;
+        this.subTitle = subTitle;
+        this.listType = listType;
+        //this.user = user;
+    }
 }

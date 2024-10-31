@@ -13,4 +13,12 @@ public class ReviewRequestDTO {
             return new Review(this.content);
         }
     }
+    @Data
+    public static class ReviewUpdateDTO{
+        private String content;
+
+        public Review toEntity(){
+            return new Review(this.content);
+        }
+    }
 }
