@@ -1,5 +1,6 @@
 package com.luckython.Pinmate.domain.Review.controller;
 
+import com.luckython.Pinmate.domain.Review.dto.MyPageDTO;
 import com.luckython.Pinmate.domain.Review.dto.ReviewRequestDTO;
 import com.luckython.Pinmate.domain.Review.dto.ReviewResponseDTO;
 import com.luckython.Pinmate.domain.Review.service.ReviewService;
@@ -45,6 +46,13 @@ public class ReviewController {
     @PostMapping("/api/review/update/{reviewid}")
     public ResponseEntity<?> update(@PathVariable Long reviewid, ReviewRequestDTO.ReviewUpdateDTO reviewUpdateDTO){
         ReviewResponseDTO.ReviewCreateDTO result = reviewService.update(reviewUpdateDTO,reviewid);
+        return ResponseEntity.ok().body(result);
+    }
+    //마이페이지
+    @GetMapping("/api/mypage")
+    public ResponseEntity<?> mypage(HttpSession session){
+        String userEmail = (String) session.getAttribute("userId");
+        MyPageDTO result = reviewService.mypage(userEmail);
         return ResponseEntity.ok().body(result);
     }
 }

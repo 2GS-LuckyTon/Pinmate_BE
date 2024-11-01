@@ -2,6 +2,7 @@ package com.luckython.Pinmate.domain.Review.service;
 
 import com.luckython.Pinmate.domain.Place.entity.PlaceList;
 import com.luckython.Pinmate.domain.Place.repository.PlaceListRepository;
+import com.luckython.Pinmate.domain.Review.dto.MyPageDTO;
 import com.luckython.Pinmate.domain.Review.dto.ReviewRequestDTO;
 import com.luckython.Pinmate.domain.Review.dto.ReviewResponseDTO;
 import com.luckython.Pinmate.domain.Review.entity.Review;
@@ -67,6 +68,13 @@ public class ReviewServiceImpl implements ReviewService{
             throw new IllegalArgumentException("리뷰가 존재하지 않음");
         }
     }
+    //마이페이지
+    public MyPageDTO mypage(String userEmail){
+        List<Review> myReview = reviewRepository.findByUserEmail(userEmail);
+        List<ReviewResponseDTO.ReviewReadDTO> result = convertToDTO(myReview);
+        return new MyPageDTO(userEmail,result);
+    }
+
     //변환
     public List<ReviewResponseDTO.ReviewReadDTO> convertToDTO(List<Review> reviewList){
         return reviewList.stream()
