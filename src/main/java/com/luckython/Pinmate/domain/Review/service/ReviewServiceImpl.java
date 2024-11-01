@@ -6,6 +6,8 @@ import com.luckython.Pinmate.domain.Review.dto.ReviewRequestDTO;
 import com.luckython.Pinmate.domain.Review.dto.ReviewResponseDTO;
 import com.luckython.Pinmate.domain.Review.entity.Review;
 import com.luckython.Pinmate.domain.Review.repository.ReviewRepository;
+import com.luckython.Pinmate.domain.Users.UserRepository;
+import com.luckython.Pinmate.domain.Users.Users;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -21,12 +23,12 @@ import java.util.stream.Collectors;
 public class ReviewServiceImpl implements ReviewService{
     private final ReviewRepository reviewRepository;
     private final PlaceListRepository placeListRepository;
-    //private final UserRepository userRepository;
+    private final UserRepository userRepository;
 
     //리뷰 생성
-    public ReviewResponseDTO.ReviewCreateDTO create(ReviewRequestDTO.ReviewCreateDTO reviewCreateDTO, Long userId,Long placeListId){
+    public ReviewResponseDTO.ReviewCreateDTO create(ReviewRequestDTO.ReviewCreateDTO reviewCreateDTO, String userEmail,Long placeListId){
         //세션에서 사용자 찾기
-        //Optional<user> user = userRepository.findById(userId);
+        Optional<Users> user = userRepository.findByEmail(userEmail);
         Optional<PlaceList> placeList = placeListRepository.findById(placeListId);
         if(placeList.isPresent()){
             Review review = new Review(reviewCreateDTO.getContent(),user.get(),placeList.get());
@@ -68,7 +70,7 @@ public class ReviewServiceImpl implements ReviewService{
     //변환
     public List<ReviewResponseDTO.ReviewReadDTO> convertToDTO(List<Review> reviewList){
         return reviewList.stream()
-                .map(review -> new ReviewResponseDTO.ReviewReadDTO(review.getContent(),review.getUser().getNickName()))
+                .map(review -> new ReviewResponseDTO.ReviewReadDTO(review.getContent(),review.getUser().getEmail()))
                 .collect(Collectors.toList());
     }
 }

@@ -23,8 +23,8 @@ public class PlaceListController {
     //장소 리스트 생성
     @PostMapping("/api/placelist/create")
     public ResponseEntity<?> createPlaceList(PlaceListRequestDTO.PlaceListCreateDTO placeListCreateDTO, HttpSession session){
-        Long userId = 1L;//session.getAttribute();
-        PlaceListResponseDTO.PlaceListCreateDTO result = placeListService.create(placeListCreateDTO,userId);
+        String userEmail = (String) session.getAttribute("userId");
+        PlaceListResponseDTO.PlaceListCreateDTO result = placeListService.create(placeListCreateDTO,userEmail);
         return ResponseEntity.ok().body(result);
     }
     //장소 리스트 검색
@@ -36,8 +36,8 @@ public class PlaceListController {
     //나의 장소리스트 목록
     @GetMapping("api/myplacelist")
     public ResponseEntity<?> myPlaceList(HttpSession session){
-        Long userId = 1L;//session.getAttribute();
-        List<PlaceListResponseDTO.PlaceListSearchDTO> result = placeListService.myList(userId);
+        String userEmail = (String) session.getAttribute("userId");
+        List<PlaceListResponseDTO.PlaceListSearchDTO> result = placeListService.myList(userEmail);
         return ResponseEntity.ok().body(result);
     }
 }

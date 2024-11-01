@@ -24,8 +24,8 @@ public class ReviewController {
     //리뷰 생성
     @PostMapping("/api/review/{placelistId}/create")
     public ResponseEntity<?> create(@PathVariable Long placelistId, ReviewRequestDTO.ReviewCreateDTO reviewCreateDTO, HttpSession session){
-        Long userId = 1L;//session.getAttribute();
-        ReviewResponseDTO.ReviewCreateDTO result = reviewService.create(reviewCreateDTO,userId,placelistId);
+        String userEmail = (String)session.getAttribute("userId");
+        ReviewResponseDTO.ReviewCreateDTO result = reviewService.create(reviewCreateDTO,userEmail,placelistId);
         return ResponseEntity.ok().body(result);
     }
     //리뷰 조회
