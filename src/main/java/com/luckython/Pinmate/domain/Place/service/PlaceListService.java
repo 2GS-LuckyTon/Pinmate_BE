@@ -1,5 +1,7 @@
 package com.luckython.Pinmate.domain.Place.service;
 
+import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.luckython.Pinmate.domain.Place.dto.PlaceListRequestDTO;
 import com.luckython.Pinmate.domain.Place.dto.PlaceListResponseDTO;
 import com.luckython.Pinmate.domain.Place.entity.PlaceList;
@@ -7,11 +9,15 @@ import com.luckython.Pinmate.domain.Place.repository.PlaceListRepository;
 import com.luckython.Pinmate.domain.Users.UserRepository;
 import com.luckython.Pinmate.domain.Users.Users;
 import lombok.RequiredArgsConstructor;
+import lombok.Value;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -20,6 +26,10 @@ import java.util.stream.Collectors;
 public class PlaceListService {
     private final PlaceListRepository placeListRepository;
     private final UserRepository userRepository;
+
+//    private final AmazonS3 amazonS3;
+//    @Value("pinmate")
+//    private String bucket;
 
     //리스트 생성
     public PlaceListResponseDTO.PlaceListCreateDTO create(PlaceListRequestDTO.PlaceListCreateDTO placeListCreateDTO,String userEmail){
@@ -57,4 +67,23 @@ public class PlaceListService {
                 .map(place -> new PlaceListResponseDTO.PlaceListSearchDTO(place.getId(),place.getTitle(), place.getSubTitle(), place.getListType()))
                 .collect(Collectors.toList());
     }
+
+    //사진 생성
+//        public String upload(MultipartFile multipartFile) throws IOException {
+//        String originalFileName = multipartFile.getOriginalFilename();
+//        //UUID 추가
+//        String uuid = UUID.randomUUID().toString();
+//        String uniqueFileName = uuid + "_" + originalFileName.replaceAll("\\s","_");
+//
+//        //String fileName = dirName + "/" + uniqueFileName;
+//        log.info("fileName: " + uniqueFileName);
+//
+//        ObjectMetadata metadata = new ObjectMetadata();
+//        metadata.setContentLength(multipartFile.getSize());
+//        metadata.setContentType(multipartFile.getContentType());
+//
+//        amazonS3.putObject(bucket, uniqueFileName,multipartFile.getInputStream(), metadata);
+//        String imgUrl = amazonS3.getUrl(bucket, uniqueFileName).toString();
+//        return imgUrl;
+//    }
 }
