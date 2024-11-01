@@ -13,7 +13,7 @@ public class PlaceList {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String title;
+    private String title; //제목
     private String subTitle;
     private ListType listType;
     @ManyToOne
