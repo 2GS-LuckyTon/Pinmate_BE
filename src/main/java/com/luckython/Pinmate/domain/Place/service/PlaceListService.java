@@ -4,11 +4,14 @@ import com.luckython.Pinmate.domain.Place.dto.PlaceListRequestDTO;
 import com.luckython.Pinmate.domain.Place.dto.PlaceListResponseDTO;
 import com.luckython.Pinmate.domain.Place.entity.PlaceList;
 import com.luckython.Pinmate.domain.Place.repository.PlaceListRepository;
+import com.luckython.Pinmate.domain.Users.UserRepository;
+import com.luckython.Pinmate.domain.Users.Users;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -16,11 +19,11 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class PlaceListService {
     private final PlaceListRepository placeListRepository;
-    //private final UserRepository userRepository;
+    private final UserRepository userRepository;
 
     //리스트 생성
-    public PlaceListResponseDTO.PlaceListCreateDTO create(PlaceListRequestDTO.PlaceListCreateDTO placeListCreateDTO,Long userId){
-        //Optional<user> user = userRepository.findById(userId);
+    public PlaceListResponseDTO.PlaceListCreateDTO create(PlaceListRequestDTO.PlaceListCreateDTO placeListCreateDTO,String userEmail){
+        Optional<Users> user = userRepository.findByEmail(userEmail);
         //PlaceList placeList = placeListCreateDTO.toEntity();
         if(user.isPresent()){
             PlaceList placeList = new PlaceList(placeListCreateDTO.getTitle(), placeListCreateDTO.getSubTitle(), placeListCreateDTO.getListType(),user.get());
@@ -40,8 +43,8 @@ public class PlaceListService {
         return dtos;
     }
     //나의 장소리스트 목록
-    public List<PlaceListResponseDTO.PlaceListSearchDTO> myList(Long userId){
-        List<PlaceList> myList = placeListRepository.findByUserId(userId);
+    public List<PlaceListResponseDTO.PlaceListSearchDTO> myList(String userEmail){
+        List<PlaceList> myList = placeListRepository.findByUserEmail(userEmail);
         List<PlaceListResponseDTO.PlaceListSearchDTO> resultList = convertToDto(myList);
         return resultList;
     }

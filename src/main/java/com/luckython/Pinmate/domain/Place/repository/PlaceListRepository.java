@@ -8,5 +8,5 @@ import java.util.List;
 
 public interface PlaceListRepository extends JpaRepository<PlaceList, Long> {
     List<PlaceList> findByTitleContaining(String keyword);
-    List<PlaceList> findByUserId(Long userId);
+    List<PlaceList> findByUserEmail(String email);
 }

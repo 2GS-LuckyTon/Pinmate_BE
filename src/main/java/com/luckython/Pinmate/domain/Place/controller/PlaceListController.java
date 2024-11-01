@@ -10,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -22,22 +23,22 @@ public class PlaceListController {
 
     //장소 리스트 생성
     @PostMapping("/api/placelist/create")
-    public ResponseEntity<?> createPlaceList(PlaceListRequestDTO.PlaceListCreateDTO placeListCreateDTO, HttpSession session){
-        Long userId = 1L;//session.getAttribute();
-        PlaceListResponseDTO.PlaceListCreateDTO result = placeListService.create(placeListCreateDTO,userId);
+    public ResponseEntity<?> createPlaceList(@RequestBody PlaceListRequestDTO.PlaceListCreateDTO placeListCreateDTO, HttpSession session){
+        String userEmail = (String) session.getAttribute("userId");
+        PlaceListResponseDTO.PlaceListCreateDTO result = placeListService.create(placeListCreateDTO,userEmail);
         return ResponseEntity.ok().body(result);
     }
     //장소 리스트 검색
     @PostMapping("/api/placelist/search")
-    public ResponseEntity<?> searchPlaceList(PlaceListRequestDTO.PlaceListSearchDTO placeListSearchDTO){
+    public ResponseEntity<?> searchPlaceList(@RequestBody PlaceListRequestDTO.PlaceListSearchDTO placeListSearchDTO){
         List<PlaceListResponseDTO.PlaceListSearchDTO> result = placeListService.search(placeListSearchDTO);
         return ResponseEntity.ok().body(result);
     }
     //나의 장소리스트 목록
     @GetMapping("api/myplacelist")
     public ResponseEntity<?> myPlaceList(HttpSession session){
-        Long userId = 1L;//session.getAttribute();
-        List<PlaceListResponseDTO.PlaceListSearchDTO> result = placeListService.myList(userId);
+        String userEmail = (String) session.getAttribute("userId");
+        List<PlaceListResponseDTO.PlaceListSearchDTO> result = placeListService.myList(userEmail);
         return ResponseEntity.ok().body(result);
     }
 }

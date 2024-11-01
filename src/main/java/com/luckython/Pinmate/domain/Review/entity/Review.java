@@ -1,6 +1,7 @@
 package com.luckython.Pinmate.domain.Review.entity;
 
 import com.luckython.Pinmate.domain.Place.entity.PlaceList;
+import com.luckython.Pinmate.domain.Users.Users;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -21,11 +22,11 @@ public class Review {
     // 멤버
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private user user;
+    private Users user;
     public Review(String content){
         this.content = content;
     }
-    public Review(String content, user user,PlaceList placeList){
+    public Review(String content, Users user,PlaceList placeList){
         this.content = content;
         this.user = user;
         this.placeList = placeList;
