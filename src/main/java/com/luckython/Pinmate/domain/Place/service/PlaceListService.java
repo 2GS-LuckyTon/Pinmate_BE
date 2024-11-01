@@ -2,12 +2,15 @@ package com.luckython.Pinmate.domain.Place.service;
 
 import com.luckython.Pinmate.domain.Place.dto.PlaceListRequestDTO;
 import com.luckython.Pinmate.domain.Place.dto.PlaceListResponseDTO;
+import com.luckython.Pinmate.domain.Place.entity.Place;
 import com.luckython.Pinmate.domain.Place.entity.PlaceList;
 import com.luckython.Pinmate.domain.Place.repository.PlaceListRepository;
+import com.luckython.Pinmate.domain.Place.repository.PlaceRepository;
 import com.luckython.Pinmate.domain.Users.UserRepository;
 import com.luckython.Pinmate.domain.Users.Users;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,6 +23,7 @@ import java.util.stream.Collectors;
 public class PlaceListService {
     private final PlaceListRepository placeListRepository;
     private final UserRepository userRepository;
+    private final PlaceRepository placeRepository;
 
     //리스트 생성
     public PlaceListResponseDTO.PlaceListCreateDTO create(PlaceListRequestDTO.PlaceListCreateDTO placeListCreateDTO,String userEmail){
@@ -56,5 +60,25 @@ public class PlaceListService {
         return placeLists.stream()
                 .map(place -> new PlaceListResponseDTO.PlaceListSearchDTO(place.getId(),place.getTitle(), place.getSubTitle(), place.getListType()))
                 .collect(Collectors.toList());
+    }
+
+    /**
+     * 장소 저장
+     * @param placeName
+     * @param placeContent
+     * @param latitude
+     * @param longitude
+     * @return String
+     */
+    public ResponseEntity<?> addPlace(String placeName, String placeContent, Double latitude, Double longitude) {
+        Place place = Place.builder()
+                .placeName(placeName)
+                .placeContent(placeContent)
+                .latitude(latitude)
+                .longitude(longitude)
+                .build();
+
+        placeRepository.save(place);
+        return ResponseEntity.ok("addPlace successful");
     }
 }

@@ -2,8 +2,9 @@ package com.luckython.Pinmate.domain.Place.dto;
 
 import com.luckython.Pinmate.domain.Place.entity.ListType;
 import com.luckython.Pinmate.domain.Place.entity.PlaceList;
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.*;
+
+import java.util.List;
 
 @Data
 public class PlaceListResponseDTO {
@@ -30,6 +31,42 @@ public class PlaceListResponseDTO {
 
         public static PlaceListSearchDTO toDTO(PlaceList placeList){
             return new PlaceListSearchDTO(placeList.getId(), placeList.getTitle(), placeList.getSubTitle(), placeList.getListType());
+        }
+    }
+
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    @Builder
+    public static class PlaceListSearchCntDTO{
+        private Long id;
+        private String title;
+        private String subTitle;
+        private ListType listType;
+        private String favCnt;
+    }
+
+    private List<PlaceListDTO> placeLists;
+
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    @Builder
+    public static class PlaceListDTO {
+        private Long id;
+        private String title;
+        private String subTitle;
+        private List<PlaceDTO> places;
+
+        @Getter
+        @NoArgsConstructor
+        @AllArgsConstructor
+        @Builder
+        public static class PlaceDTO {
+            private Long id;
+            private String placeName;
+            private double latitude;
+            private double longitude;
         }
     }
 }
