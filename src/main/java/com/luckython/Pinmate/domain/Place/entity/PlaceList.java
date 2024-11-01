@@ -15,6 +15,7 @@ public class PlaceList {
     private Long id;
     private String title;
     private String subTitle;
+    //내용 한줄소개
     private ListType listType;
     @ManyToOne
     @JoinColumn(name = "user_id")
