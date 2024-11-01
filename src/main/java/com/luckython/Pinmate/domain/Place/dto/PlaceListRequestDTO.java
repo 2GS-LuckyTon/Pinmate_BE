@@ -11,10 +11,11 @@ public class PlaceListRequestDTO {
         private String title;
         private String subTitle;
         private ListType listType;
+        private int pinColor;
 
-        public PlaceList toEntity(){
-            return new PlaceList(this.title,this.subTitle,this.listType);
-        }
+//        public PlaceList toEntity(){
+//            return new PlaceList(this.title,this.subTitle,this.listType);
+//        }
     }
     @Data
     public static class PlaceListSearchDTO{

@@ -30,7 +30,7 @@ public class PlaceListService {
         Optional<Users> user = userRepository.findByEmail(userEmail);
         //PlaceList placeList = placeListCreateDTO.toEntity();
         if(user.isPresent()){
-            PlaceList placeList = new PlaceList(placeListCreateDTO.getTitle(), placeListCreateDTO.getSubTitle(), placeListCreateDTO.getListType(),user.get());
+            PlaceList placeList = new PlaceList(placeListCreateDTO.getTitle(), placeListCreateDTO.getSubTitle(), placeListCreateDTO.getListType(),user.get(), placeListCreateDTO.getPinColor());
             placeListRepository.save(placeList);
             return PlaceListResponseDTO.PlaceListCreateDTO.toDTO(placeList);
         }
@@ -58,7 +58,7 @@ public class PlaceListService {
     //List<placeList>를 dto로 변환
     public List<PlaceListResponseDTO.PlaceListSearchDTO> convertToDto(List<PlaceList> placeLists){
         return placeLists.stream()
-                .map(place -> new PlaceListResponseDTO.PlaceListSearchDTO(place.getId(),place.getTitle(), place.getSubTitle(), place.getListType()))
+                .map(place -> new PlaceListResponseDTO.PlaceListSearchDTO(place.getId(),place.getTitle(), place.getSubTitle(), place.getListType(), place.getPinColor()))
                 .collect(Collectors.toList());
     }
 
