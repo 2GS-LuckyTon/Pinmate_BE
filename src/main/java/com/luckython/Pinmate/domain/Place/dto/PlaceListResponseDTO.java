@@ -15,10 +15,11 @@ public class PlaceListResponseDTO {
         private String title;
         private String subTitle;
         private ListType listType;
+        private int pinColor;
         //private String nickName;
 
         public static PlaceListCreateDTO toDTO(PlaceList placeList){
-            return new PlaceListCreateDTO(placeList.getId(),placeList.getTitle(),placeList.getSubTitle(),placeList.getListType());
+            return new PlaceListCreateDTO(placeList.getId(),placeList.getTitle(),placeList.getSubTitle(),placeList.getListType(), placeList.getPinColor());
         }
     }
     @Data
@@ -28,9 +29,10 @@ public class PlaceListResponseDTO {
         private String title;
         private String subTitle;
         private ListType listType;
+        private int pinColor;
 
         public static PlaceListSearchDTO toDTO(PlaceList placeList){
-            return new PlaceListSearchDTO(placeList.getId(), placeList.getTitle(), placeList.getSubTitle(), placeList.getListType());
+            return new PlaceListSearchDTO(placeList.getId(), placeList.getTitle(), placeList.getSubTitle(), placeList.getListType(), placeList.getPinColor());
         }
     }
 

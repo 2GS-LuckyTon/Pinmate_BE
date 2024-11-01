@@ -16,19 +16,22 @@ public class PlaceList {
     private String title; //제목
     private String subTitle;
     private ListType listType;
+    private int pinColor;
     @ManyToOne
     @JoinColumn(name = "user_id")
     private Users user;
 
-    public PlaceList(String title, String subTitle, ListType listType){
+    public PlaceList(String title, String subTitle, ListType listType, int pinColor){
         this.title = title;
         this.subTitle = subTitle;
         this.listType = listType;
+        this.pinColor = pinColor;
     }
-    public PlaceList(String title,String subTitle, ListType listType, Users user){
+    public PlaceList(String title,String subTitle, ListType listType, Users user, int pinColor){
         this.title = title;
         this.subTitle = subTitle;
         this.listType = listType;
         this.user = user;
+        this.pinColor = pinColor;
     }
 }
