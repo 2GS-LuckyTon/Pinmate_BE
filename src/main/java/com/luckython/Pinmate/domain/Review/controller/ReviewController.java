@@ -9,10 +9,7 @@ import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -24,7 +21,7 @@ public class ReviewController {
 
     //리뷰 생성
     @PostMapping("/api/review/{placelistId}/create")
-    public ResponseEntity<?> create(@PathVariable Long placelistId, ReviewRequestDTO.ReviewCreateDTO reviewCreateDTO, HttpSession session){
+    public ResponseEntity<?> create(@PathVariable Long placelistId, @RequestBody ReviewRequestDTO.ReviewCreateDTO reviewCreateDTO, HttpSession session){
         String userEmail = (String)session.getAttribute("userId");
         ReviewResponseDTO.ReviewCreateDTO result = reviewService.create(reviewCreateDTO,userEmail,placelistId);
         return ResponseEntity.ok().body(result);
@@ -44,7 +41,7 @@ public class ReviewController {
     }
     //리뷰 수정
     @PostMapping("/api/review/update/{reviewid}")
-    public ResponseEntity<?> update(@PathVariable Long reviewid, ReviewRequestDTO.ReviewUpdateDTO reviewUpdateDTO){
+    public ResponseEntity<?> update(@PathVariable Long reviewid, @RequestBody ReviewRequestDTO.ReviewUpdateDTO reviewUpdateDTO){
         ReviewResponseDTO.ReviewCreateDTO result = reviewService.update(reviewUpdateDTO,reviewid);
         return ResponseEntity.ok().body(result);
     }

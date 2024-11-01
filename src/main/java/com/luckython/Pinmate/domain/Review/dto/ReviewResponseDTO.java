@@ -15,7 +15,7 @@ public class ReviewResponseDTO {
         //작성자
 
         public static ReviewCreateDTO toDTO(Review review){
-            return new ReviewCreateDTO(review.getId(),review.getContent(),review.getUser().getNickName());
+            return new ReviewCreateDTO(review.getId(),review.getContent(),review.getUser().getEmail());
         }
     }
     @Data

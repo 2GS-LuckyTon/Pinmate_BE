@@ -29,6 +29,6 @@ public class PlaceList {
         this.title = title;
         this.subTitle = subTitle;
         this.listType = listType;
-        //this.user = user;
+        this.user = user;
     }
 }
